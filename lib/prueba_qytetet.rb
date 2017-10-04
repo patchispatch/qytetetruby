@@ -1,17 +1,20 @@
 #encoding :utf-8
-# To change this license header, choose License Headers in Project Properties.
-# To change this template file, choose Tools | Templates
-# and open the template in the editor.
 
 # Indicar dónde están los recursos en otros ficheros:
 require_relative "tipo_sorpresa"
 require_relative "sorpresa"
+require_relative "tablero"
+require_relative "tipo_casilla"
+require_relative "casilla"
+require_relative "titulo_propiedad"
 
 
 module ModeloQytetet
  class PruebaQytetet
    
+   #Atributos de la clase
    @@mazo=[]
+   @@tablero = Tablero.new
    
   def self.inicializar_sorpresa
     @@mazo << Sorpresa.new("Un fan anónimo ha pagado tu fianza. Sales de la cárcel", 0, TipoSorpresa::SALIRCARCEL)
@@ -39,7 +42,7 @@ module ModeloQytetet
   # Main:
   
   def self.main
-    # Inicializamos sorpresa:
+    # Inicializamos sorpresa y tablero:
     inicializar_sorpresa
     puts @@mazo.to_s
     
@@ -58,6 +61,9 @@ module ModeloQytetet
     muestra.each do |sorpresa|
       puts sorpresa.to_s
     end
+    
+    #Muestra el tablero:
+    puts @@tablero.to_s
   end
 
    PruebaQytetet.main

@@ -18,7 +18,7 @@ module ModeloQytetet
    
   def self.inicializar_sorpresa
     @@mazo << Sorpresa.new("Un fan anónimo ha pagado tu fianza. Sales de la cárcel", 0, TipoSorpresa::SALIRCARCEL)
-    @@mazo << Sorpresa.new("Te hemos pillado con chanclas y calcecines. Lo sentimos, ¡debes ir a la cárcel!", 9, TipoSorpresa::IRACASILLA)
+    @@mazo << Sorpresa.new("Te hemos pillado con chanclas y calcecines. Lo sentimos, ¡debes ir a la cárcel!", @@tablero.carcel.numero_casilla, TipoSorpresa::IRACASILLA)
   end
   
   # Devuelve las sorpresas con valor mayor que 0:
@@ -38,31 +38,43 @@ module ModeloQytetet
   
   # Métodos privados:
   private_class_method :valen_mas_cero,:ir_casilla,:mostrar_cartas_tipo
+  
   ###########################################################################
   # Main:
   
   def self.main
     # Inicializamos sorpresa y tablero:
     inicializar_sorpresa
-    puts @@mazo.to_s
+    
+    puts "Mazo: \n"
+    @@mazo.each{|carta| puts carta.to_s}
+    puts "\n\n"
     
     # Devuelve las sorpresas con valor mayor que cero:
+    puts "Cartas con valor mayor que cero: \n"
     muestra = valen_mas_cero()
     muestra.each{ |sorpresa| puts sorpresa.to_s }
+    puts "\n\n" 
     
     # Devuelve las sopresas de tipo IRACASILLA:
+    puts "Cartas de tipo IrACasilla: \n"
     muestra = ir_casilla()
     muestra.each do |sorpresa|
       puts sorpresa.to_s
-    end
+    end 
+    puts "\n\n"
     
     # Devuelve la sorpresa de tipo especificado en el argumento:
-    muestra = mostrar_cartas_tipo(TipoSorpresa::SALIRCARCEL)
+    @tipo = TipoSorpresa::SALIRCARCEL
+    puts "Sorpresas de tipo #{@tipo}:"
+    muestra = mostrar_cartas_tipo(@tipo)
     muestra.each do |sorpresa|
       puts sorpresa.to_s
     end
+    puts "\n\n"
     
-    #Muestra el tablero:
+    #Muestra el tablero: 
+    puts "Tablero: \n"
     puts @@tablero.to_s
   end
 

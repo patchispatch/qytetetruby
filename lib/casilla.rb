@@ -26,13 +26,29 @@ module ModeloQytetet
     
     #to_s: muestra el contenido de la casilla en pantalla:
     def to_s
-      "Tipo: #{@tipo}. \n Coste: #{@coste}. \n Propiedad de #{@titulo}. \n Número de hoteles: #{@num_hoteles}." + 
+      str =""
+      if @tipo == :Calle
+        str = str + "Tipo: #{@tipo}. \n Coste: #{@coste}. \n Propiedad de #{@titulo}. \n Número de hoteles: #{@num_hoteles}." + 
         "\n Número de casas: #{@num_casas}."
+      
+      else
+        str = str +"Tipo: #{@tipo}. \n Coste: #{@coste}. \n"
+      end
+      
+      return str
     end
     
-
+    #Crear casilla:
+    def self.crear_casilla_normal(numero_casilla,coste,tipo)
+      new(numero_casilla,coste,tipo,nil)
+    end
+    def self.crear_casilla_calle (numero_casilla,coste,tipo)
+      new(numero_casilla,coste,tipo)
+    end
+    
+    
     #Métodos privados:
+    private_class_method :new
     private :titulo_propiedad
   end
 end
-

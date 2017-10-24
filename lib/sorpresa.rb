@@ -5,7 +5,7 @@
 
 module ModeloQytetet
   class Sorpresa
-    #Consusltores:
+    #Consultores:
     attr_reader :texto,:valor,:tipo
     
     # Inicializa la clase (t: texto, v: valor, tp: tipo):

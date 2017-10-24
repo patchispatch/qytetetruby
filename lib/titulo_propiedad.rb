@@ -7,7 +7,7 @@ module ModeloQytetet
     attr_accessor :hipotecada
     
     #Constructor:
-    def initialize(n,h, ab, fr, hb, pe )
+    def initialize(n=nil, h=nil, ab=nil, fr=nil, hb=nil, pe=nil)
       @nombre = n
       @hipotecada = h
       @alquiler_base = ab
@@ -21,5 +21,14 @@ module ModeloQytetet
       "Factor de revalorización: #{@factor_revalorizacion}. \n Hipoteca base: #{@hipoteca_base}. \n" + 
       "Precio de edificación: #{@precio_edificar}."
     end
+    
+    def propietario_encarcelado
+      raise "No implementado"
+    end
+    
+    def tengo_propietario
+      raise "No implementado"
+    end
+    
   end
 end

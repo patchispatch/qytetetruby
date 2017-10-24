@@ -10,7 +10,7 @@ module ModeloQytetet
     
     
     #Constructor:
-    def initialize(n, c, t, nh=0, nc=0, tp=nil)
+    def initialize(n, c, t, tp=nil, nh=0, nc=0)
       @numero_casilla = n
       @coste = c
       @tipo = t
@@ -42,8 +42,72 @@ module ModeloQytetet
     def self.crear_casilla_normal(numero_casilla,coste,tipo)
       new(numero_casilla,coste,tipo,nil)
     end
-    def self.crear_casilla_calle (numero_casilla,coste,tipo)
-      new(numero_casilla,coste,tipo)
+    def self.crear_casilla_calle (numero_casilla,coste,tipo, tit)
+      new(numero_casilla,coste,tipo,tit)
+    end
+    
+    def asignar_propietario(jugador)
+      @titulo.nombre = jugador
+    end
+    
+    def calcular_valor_hipoteca
+      raise "No implementado"
+    end
+    
+    def cancelar_hipoteca
+      raise "No implementado"
+    end
+    
+    def cobrar_alquiler
+      raise "No implementado"
+    end
+    
+    def edificar_casa
+      raise "No implementado"
+    end
+    
+    def edificar_hotel
+      raise "No implementado"
+    end
+    
+    def esta_hipotecada
+      raise "No implementado"
+    end
+    
+    def hipotecar
+      raise "No implementado"
+    end
+   
+    def precio_total_comprar
+      raise "No implementado"
+    end
+    
+    def propietario_encarcelado 
+      raise "No implementado"
+    end
+    
+    def se_puede_edificar_casa
+      raise "No implementado"
+    end
+    
+    def se_puede_edificar_hotel
+      raise "No implementado"
+    end
+    
+    def soy_edificable
+      raise "No implementado"
+    end
+    
+    def tengo_propietario
+      raise "No implementado"
+    end
+    
+    def vender_titulo
+      raise "No implementado"
+    end
+    
+    def asignar_titulo_propiedad
+      raise "No implementado"
     end
     
     

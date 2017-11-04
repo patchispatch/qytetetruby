@@ -1,9 +1,9 @@
 #encoding :utf-8
 
-
 module ModeloQytetet
   class Tablero
     
+    #Consultores
     attr_reader :carcel, :parking, :impuesto
     
     #Constructor:
@@ -61,32 +61,17 @@ module ModeloQytetet
       @casillas.each{|casi| str = str + casi.to_s + "\n\n"}
       return str
     end
-    
+
     def es_casilla_carcel(cas)
-      raise "No implementado"
+      return cas == @carcel
     end
     
     def obtener_casilla_numero(num)
-      
-      encontrado = false
-      
-      for i in @casillas
-        
-        while (!encontrado)
-          
-          if(num == i.numero_casilla)
-            devolver = i
-            encontrado = true
-          end
-          
-        end
-      end
-      
-      devolver
+      return @casillas[num]
     end
     
-    def obtene_nueva_casilla(cas, despl)
-      raise "No implementado"
+    def obtener_nueva_casilla(cas, despl)
+      return @casillas[(cas.numero_casilla+despl)%20]
     end
     
     

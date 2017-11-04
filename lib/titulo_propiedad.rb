@@ -3,7 +3,8 @@
 module ModeloQytetet
   class TituloPropiedad
     #Consultores
-    attr_reader :nombre, :alquiler_base, :factor_revalorizacion, :hipoteca_base, :precio_edificar
+    attr_reader :nombre, :alquiler_base, :factor_revalorizacion, :hipoteca_base, 
+                :precio_edificar
     attr_accessor :hipotecada
     
     #Constructor:
@@ -27,8 +28,9 @@ module ModeloQytetet
     end
     
     def tengo_propietario
-      raise "No implementado"
+      @nombre != nil
+     
     end
-    
+   
   end
 end

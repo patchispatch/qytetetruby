@@ -16,7 +16,7 @@ module ModeloQytetet
       @tipo = t
       @num_hoteles = nh
       @num_casas = nc
-      @titulo = tp
+      @titulo = asignar_titulo_propiedad(tp)
     end
     
     #Modificador de la propiedad:
@@ -69,15 +69,15 @@ module ModeloQytetet
     def edificar_hotel
       raise "No implementado"
     end
-    
+
     def esta_hipotecada
-      raise "No implementado"
+      return !@titulo.nil?
     end
     
     def hipotecar
       raise "No implementado"
     end
-   
+    #Suma de coste, suma de precio casa y hoteles * lo que cuesta edificar
     def precio_total_comprar
       raise "No implementado"
     end
@@ -93,9 +93,9 @@ module ModeloQytetet
     def se_puede_edificar_hotel
       raise "No implementado"
     end
-    
+
     def soy_edificable
-      raise "No implementado"
+      @tipo == TipoCasilla::CALLE
     end
     
     def tengo_propietario
@@ -106,8 +106,9 @@ module ModeloQytetet
       raise "No implementado"
     end
     
-    def asignar_titulo_propiedad
-      raise "No implementado"
+    def asignar_titulo_propiedad(tp)
+      @titulo = tp
+      #this.setCasilla()
     end
     
     

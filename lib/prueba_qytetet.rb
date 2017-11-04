@@ -44,6 +44,39 @@ module ModeloQytetet
     
     #Declaramos e inicializamos qytetet:
     qytetet = Qytetet.instance
+    qytetet.inicializar_juego(["Vero","Juan"])
+    
+    carcel = qytetet.tablero.obtener_casilla_numero(5)
+    if qytetet.tablero.es_casilla_carcel(carcel)
+      puts "El cacharro funciona"
+    else
+      puts "Houston tenemos un problemilla"
+    end
+    
+    nuevacasilla = qytetet.tablero.obtener_nueva_casilla(carcel, 3)
+    puts nuevacasilla.numero_casilla
+    
+    puts "Probando propiedades de jugador actual " + 
+      qytetet.propiedades_hipotecadas_jugador(true).to_s
+    puts qytetet.jugador_actual.to_s
+    qytetet.siguiente_jugador
+    puts qytetet.jugador_actual.to_s
+    qytetet.siguiente_jugador
+    puts qytetet.jugador_actual.to_s
+    
+    casillaedificable = qytetet.tablero.obtener_casilla_numero(4)
+    if casillaedificable.soy_edificable
+      puts "Soy Edificable :)"
+    else
+      puts ":("
+    end
+    
+    if carcel.soy_edificable
+      puts "Ups"
+    else
+      puts "Funciona Soy Edificable"
+    end
+
     
     #puts "Mazo: \n"
     #@@mazo.each{|carta| puts carta.to_s}
@@ -77,23 +110,23 @@ module ModeloQytetet
     #puts @@tablero.to_s
     
     #Inicializamos los jugadores (provisional)
-    nombres = Array.new
-    nombres << "MJ"
-    nombres << "Juan"
-    nombres << "Pepe"
-    nombres << "Laura"
-    
-    #Inicializamos el juego:
-    qytetet.inicializar_juego(nombres)
- 
-    
-    #Mostramos qytetet:
-    puts "Qytetet: \n"
-    puts qytetet.to_s
-    
-    #Mostramos el dado de qytetet:
-    "Dado: \n"
-    puts qytetet.dado.tirar
+#    nombres = Array.new
+#    nombres << "MJ"
+#    nombres << "Juan"
+#    nombres << "Pepe"
+#    nombres << "Laura"
+#    
+#    #Inicializamos el juego:
+#    qytetet.inicializar_juego(nombres)
+# 
+#    
+#    #Mostramos qytetet:
+#    puts "Qytetet: \n"
+#    puts qytetet.to_s
+#    
+#    #Mostramos el dado de qytetet:
+#    "Dado: \n"
+#    puts qytetet.dado.tirar
     
     
   end

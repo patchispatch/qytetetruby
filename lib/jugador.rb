@@ -3,8 +3,13 @@
 module ModeloQytetet
   class Jugador
     
+    #Modificadores y consultores
     attr_accessor :casilla_actual,:encarcelado
+    
+    #Modificadores
     attr_writer :carta_libertad
+    
+    #Consultores
     attr_reader :propiedades
     
     def initialize(n)
@@ -24,25 +29,37 @@ module ModeloQytetet
     def comprar_titulo
       raise "No implementado"
     end
-    
+    #guardamos la carta en una variable auxiliar y lo tenemos a null
     def devolver_carta_libertad
-      raise "No implementado"
+      auxiliar = @carta_libertad
+      @carta_libertad = nil
+      #¿cómo devolver?
     end
     
     def ir_a_carcel
       raise "No implementado"
     end
-    
-    def modificar_saldo
-      raise "No implementado"
+
+    def modificar_saldo(cantidad)
+      @saldo = @saldo + cantidad
     end
-    
+
     def obtener_capital
-      raise "No implementado"
+      capital = @saldo
+      @propiedades.each do |propied|
+        capital = capital + propied.coste
+        propied.titulo.each do |edificio|
+          capital = capital + (edificio.precio_edificar * cuantas_casas_hoteles_tengo)
+          if (propied.esta_hipotecada)
+            capital = capital - propied.hipoteca_base
+          end
+        end
+      end
+      return capital
     end
-    
-    def obtener_propiedades_hipotecadas
-      raise "No implementado"
+   
+    def obtener_propiedades_hipotecadas(hipotecadas)
+      @propiedades.select { |propied|  propied.hipotecada == hipotecadas}
     end
     
     def pagar_cobrar_por_casa_y_hotel
@@ -68,33 +85,38 @@ module ModeloQytetet
     def puedo_pagar_hipoteca
       raise "No implementado"
     end
-    
-    def puedo_vender_propiedad
-      raise "No implementado"
+   
+    def puedo_vender_propiedad(casi)
+      es_de_mi_propiedad(casi) && !casi.esta_hipotecada
     end
     
-    def tengo_carta__libertad
-      raise "No implementado"
+    def tengo_carta_libertad
+      return !@carta_libertad.nil?
     end
-    
+    def tengo_propiedades
+      !@propiedades.empty?
+    end
+    #Si es 0 no tiene propiedades, si es distinto de 0 si tiene propiedades
     def vender_propiedad
       raise "No implementado"
     end
     
     def cuantas_casas_hoteles_tengo
-      raise "No implementado"
+      @propiedades.count{|propied| propied.num_hoteles > 0 || \
+                            propied.num_casas > 0}
     end
-    
-    def eliminar_de_mis_propiedades
-      raise "No implementado"
+ 
+    def eliminar_de_mis_propiedades(casi)
+      @propiedades.delete(casi.titulo)
     end
-    
-    def es_de_mi_propiedad
-      raise "No implementado"
+
+    def es_de_mi_propiedad(casi)
+      a = @propiedades.find_index { |propied| propied==casi.titulo}
+      return ! a.nil?
     end
-    
-    def tengo_saldo
-      raise "No implementado"
+
+    def tengo_saldo(cantidad)
+     @saldo >= cantidad
     end
     
     def to_s

@@ -13,7 +13,7 @@ module ModeloQytetet
     
     def tirar
       aleatorio = rand(6)
-      alatorio = aleatorio + 1
+      aleatorio = aleatorio + 1
     end
   end
 end

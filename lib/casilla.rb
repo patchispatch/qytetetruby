@@ -71,7 +71,7 @@ module ModeloQytetet
     end
 
     def esta_hipotecada
-      return !@titulo.nil?
+      return @titulo.hipotecada
     end
     
     def hipotecar

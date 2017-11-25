@@ -26,7 +26,7 @@ module ModeloQytetet
     
     #to_s: muestra el contenido de la casilla en pantalla:
     def to_s
-      str =""
+      str ="Número: #{@numero_casilla}. \n"
       if @tipo == :Calle
         str = str + "Tipo: #{@tipo}. \n Coste: #{@coste}. \n Propiedad de #{@titulo}. \n Número de hoteles: #{@num_hoteles}." + 
         "\n Número de casas: #{@num_casas}."
@@ -47,6 +47,8 @@ module ModeloQytetet
     end
     
     def asignar_propietario(jugador)
+      
+      @titulo = TituloPropiedad.new
       @titulo.propietario = jugador
     end
     
@@ -109,7 +111,13 @@ module ModeloQytetet
     end
     
     def se_puede_edificar_hotel
-      raise "No implementado"
+        resultado = false
+      
+      if(@num_casas > 4 && @num_hoteles < 4)
+        resultado = true
+      end
+      
+      resultado
     end
 
     def soy_edificable
@@ -117,9 +125,10 @@ module ModeloQytetet
     end
     
     def tengo_propietario
+      
       resultado = false
       
-      if(@titulo.tengo_propietario())
+      if(!@titulo.nil? && @titulo.tengo_propietario())
         resultado = true
       end
       

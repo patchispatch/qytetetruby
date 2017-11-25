@@ -10,7 +10,7 @@ module ModeloQytetet
     attr_writer :carta_libertad
     
     #Consultores
-    attr_reader :propiedades
+    attr_reader :propiedades, :nombre
     
     def initialize(n)
       @encarcelado = false
@@ -26,7 +26,7 @@ module ModeloQytetet
       
       if(casilla.numero_casilla < @casilla_actual.numero_casilla)
         
-        modificar_saldo(Qytetet::SALDO_SALIDA)
+        modificar_saldo(Qytetet.saldo_salida)
       end
       
       @casilla_actual = casilla
@@ -50,7 +50,7 @@ module ModeloQytetet
       puedo_comprar = false
       coste_compra = @casilla_actual.coste
       
-      if(@casilla_actual.soy_edificable && !@casilla_actual.tengo_propietario && coste_compra<= saldo)
+      if(@casilla_actual.soy_edificable && !@casilla_actual.tengo_propietario && coste_compra<= @saldo)
         
         @casilla_actual.asignar_propietario(self)
         @propiedades << @casilla_actual.titulo
@@ -129,7 +129,19 @@ module ModeloQytetet
     end
     
     def puedo_edificar_hotel
-      raise "No implementado"
+       resultado = false
+      
+      if(es_de_mi_propiedad(casilla))
+        
+        coste_edificar_hotel = casilla.titulo.precio_edificar
+        
+        if(tengo_saldo(coste_edificar_hotel))
+          
+          resultado = true
+        end
+      end
+      
+      resultado
     end
     
     def puedo_hipotecar(casilla)
@@ -190,14 +202,26 @@ module ModeloQytetet
       
       cadena = cadena + "Carta libertad: " + @carta_libertad.to_s + "\n"
       
-      cadena = cadena + "Casilla actual: " + @casilla_actual.to_s + "\n"
+      cadena = cadena + "Casilla actual: " + @casilla_actual.to_s
       
       cadena = cadena + "Propiedades: \n"
       for s in @propiedades
         cadena = cadena + "#{s}. \n"
       end
       
+      cadena = cadena + "\n"
+      
       cadena
+    end
+    
+    def bancarrota
+      arruinado = false
+      
+      if(@saldo <= 0)
+        arruinado = true
+      end
+      
+      return arruinado
     end
     
     private :tengo_saldo, :es_de_mi_propiedad, :eliminar_de_mis_propiedades

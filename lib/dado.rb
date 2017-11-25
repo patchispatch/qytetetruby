@@ -14,6 +14,10 @@ module ModeloQytetet
     def tirar
       aleatorio = rand(6)
       aleatorio = aleatorio + 1
+      
+      puts "Valor del dado: #{aleatorio}. \n"
+      
+      aleatorio
     end
   end
 end

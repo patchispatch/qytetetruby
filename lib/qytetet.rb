@@ -6,6 +6,7 @@ require_relative "casilla"
 require_relative "tablero"
 require_relative "jugador"
 require_relative "sorpresa"
+require_relative "tipo_sorpresa"
 
 module ModeloQytetet
   class Qytetet 
@@ -102,7 +103,16 @@ module ModeloQytetet
     end
     
     def edificar_hotel (casilla)
-      raise ""
+      puedo_edificar = false;
+      
+      if(casilla.soy_edificable && casilla.se_puede_edificar_hotel && 
+         @jugador_actual.puedo_edificar_hotel(casilla))
+     
+        @jugador_actual.modificar_saldo(- casilla.titulo.precio_edificar)
+        puedo_edificar = true
+      end
+      
+      puedo_edificar
     end
     
     def hipotecar_propiedad (casilla)
@@ -130,17 +140,22 @@ module ModeloQytetet
     def intentar_salir_carcel (metodo)
       libre = false
       
-      valor_dado = @dado.tirar
-      
-      if(valor_dado > 5)
-        libre = true
-        
-      elsif(@jugador_actual.tengo_saldo(@@PRECIO_LIBERTAD))
-        @jugador_actual.modificar_saldo(- @@PRECIO_LIBERTAD)
-        libre = true
+      if(!metodo)
+        valor_dado = @dado.tirar
+
+        if(valor_dado > 5)
+          libre = true
+        end
       end
       
-      @jugador_actual.encarcelado = libre
+      if(metodo) 
+        if(@jugador_actual.tengo_saldo(@@PRECIO_LIBERTAD))
+          @jugador_actual.modificar_saldo(- @@PRECIO_LIBERTAD)
+          libre = true
+        end
+
+        @jugador_actual.encarcelado = libre
+      end
     end
     
     def jugar
@@ -162,17 +177,22 @@ module ModeloQytetet
         end
       end
       
+      
+      
       return tiene_propietario
     end
     
     def obtener_ranking (jugadores)
       
-      ranking = []
+      ranking = Hash.new
       
       for j in @jugadores
         
-        # => No sé implementarlo, preguntar a profesora.
+        capital = j.obtener_capital
+        ranking[j.nombre] = capital
       end
+      
+      ranking
     end
     
     def propiedades_hipotecadas_jugador(hipotecadas)
@@ -287,7 +307,7 @@ module ModeloQytetet
       
     def salida_jugadores
       @jugadores.each do |jugador|
-        jugador.casilla_actual = tablero.obtener_casilla_numero(0)
+        jugador.casilla_actual = @tablero.obtener_casilla_numero(0)
       end
       aleatorio = rand(@jugadores.size)
       
@@ -315,6 +335,11 @@ module ModeloQytetet
       cadena
     end
     
+    
+    def self.saldo_salida
+      
+      @@SALDO_SALIDA
+    end
     private :encarcelar_jugador, :inicializar_cartas_sorpresa,
             :inicializar_jugadores, :inicializar_tablero, :salida_jugadores
             

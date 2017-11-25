@@ -4,8 +4,8 @@ module ModeloQytetet
   class TituloPropiedad
     #Consultores
     attr_reader :nombre, :alquiler_base, :factor_revalorizacion, :hipoteca_base, 
-                :precio_edificar, :propietario
-    attr_accessor :hipotecada
+                :precio_edificar
+    attr_accessor :hipotecada, :propietario, :casilla
     
     #Constructor:
     def initialize(n=nil, h=nil, ab=nil, fr=nil, hb=nil, pe=nil, prop=nil, cas=nil)

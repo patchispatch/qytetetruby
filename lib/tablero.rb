@@ -1,5 +1,6 @@
 #encoding :utf-8
-
+require_relative 'tipo_casilla'
+require_relative 'titulo_propiedad'
 module ModeloQytetet
   class Tablero
     

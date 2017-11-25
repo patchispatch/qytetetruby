@@ -4,17 +4,20 @@ module ModeloQytetet
   class TituloPropiedad
     #Consultores
     attr_reader :nombre, :alquiler_base, :factor_revalorizacion, :hipoteca_base, 
-                :precio_edificar
+                :precio_edificar, :propietario
     attr_accessor :hipotecada
     
     #Constructor:
-    def initialize(n=nil, h=nil, ab=nil, fr=nil, hb=nil, pe=nil)
+    def initialize(n=nil, h=nil, ab=nil, fr=nil, hb=nil, pe=nil, prop=nil, cas=nil)
       @nombre = n
       @hipotecada = h
       @alquiler_base = ab
       @factor_revalorizacion = fr
       @hipoteca_base = hb
       @precio_edificar = pe
+      #Atributos de referencia:
+      @propietario = prop
+      @casilla = cas
     end
     
     def to_s
@@ -24,11 +27,11 @@ module ModeloQytetet
     end
     
     def propietario_encarcelado
-      raise "No implementado"
+      @propietario.encarcelado
     end
     
     def tengo_propietario
-      @nombre != nil
+      @propietario != nil
      
     end
    

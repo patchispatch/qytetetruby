@@ -32,7 +32,7 @@ module ModeloQytetet
         "\n Número de casas: #{@num_casas}."
       
       else
-        str = str +"Tipo: #{@tipo}. \n Coste: #{@coste}. \n"
+        str = str +"Número: #{@numero_casilla}. Tipo: #{@tipo}. \n Coste: #{@coste}. \n"
       end
       
       return str
@@ -47,7 +47,7 @@ module ModeloQytetet
     end
     
     def asignar_propietario(jugador)
-      @titulo.nombre = jugador
+      @titulo.propietario = jugador
     end
     
     def calcular_valor_hipoteca
@@ -59,11 +59,15 @@ module ModeloQytetet
     end
     
     def cobrar_alquiler
-      raise "No implementado"
+      coste_alquiler = (titulo.alquiler_base + (@num_casas * 0.5) + (@num_hoteles * 2)).to_i
+      @titulo.propietario.modificar_saldo(coste_alquiler)
+      
+      coste_alquiler
+      
     end
     
     def edificar_casa
-      raise "No implementado"
+      @num_casas = @num_casas + 1
     end
     
     def edificar_hotel
@@ -75,7 +79,14 @@ module ModeloQytetet
     end
     
     def hipotecar
-      raise "No implementado"
+      
+      hipo = @titulo.hipoteca_base
+      
+      @titulo.hipotecada = true;
+      valor_hipoteca = hipo + ((@num_casas * 0.5 * hipo)
+                       + (@num_hoteles * hipo)).to_i
+                     
+      return valor_hipoteca
     end
     #Suma de coste, suma de precio casa y hoteles * lo que cuesta edificar
     def precio_total_comprar
@@ -87,11 +98,24 @@ module ModeloQytetet
     end
     
     def se_puede_edificar_casa
-      raise "No implementado"
+     
+      resultado = false
+      
+      if(@num_casas < 4)
+        resultado = true
+      end
+      
+      resultado
     end
     
     def se_puede_edificar_hotel
-      raise "No implementado"
+        resultado = false
+      
+      if(@num_casas > 4 && @num_hoteles < 4)
+        resultado = true
+      end
+      
+      resultado
     end
 
     def soy_edificable
@@ -99,7 +123,13 @@ module ModeloQytetet
     end
     
     def tengo_propietario
-      raise "No implementado"
+      resultado = false
+      
+      if(@titulo.tengo_propietario())
+        resultado = true
+      end
+      
+      resultado
     end
     
     def vender_titulo

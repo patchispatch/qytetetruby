@@ -16,7 +16,7 @@ module ModeloQytetet
       @encarcelado = false
       @nombre = n
       @saldo = 7500
-      @propiedades = []
+      @propiedades = Array.new
       @carta_libertad = nil
       @casilla_actual = nil
       

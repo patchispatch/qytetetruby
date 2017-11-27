@@ -10,7 +10,7 @@ module ModeloQytetet
     
     
     #Constructor:
-    def initialize(n, c, t, tp=nil, nh=0, nc=0)
+    def initialize(n, c, t, tp, nh=0, nc=0)
       @numero_casilla = n
       @coste = c
       @tipo = t

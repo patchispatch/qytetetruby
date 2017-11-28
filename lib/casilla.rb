@@ -60,7 +60,11 @@ module ModeloQytetet
     end
     
     def cancelar_hipoteca
-      raise "No implementado"
+      valor_hipoteca = calcular_valor_hipoteca
+      porcentaje = valor_hipoteca * 0.1
+      valor_hipoteca = (valor_hipoteca + porcentaje).to_i
+      
+      valor_hipoteca
     end
     
     def cobrar_alquiler

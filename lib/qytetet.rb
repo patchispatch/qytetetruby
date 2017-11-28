@@ -211,6 +211,15 @@ module ModeloQytetet
       @jugador_actual = @jugadores[(posicion+1)%@jugadores.size]
     end
     
+    def cancelar_hipoteca(casilla)
+        hipotecada = false
+        if(casilla.esta_hipotecada)
+            @jugador_actual.modificar_saldo(casilla.cancelar_hipoteca)
+            hipotecada = true
+        end
+         hipotecada;
+    end
+    
     def vender_propiedad(casilla)
       raise ""
     end

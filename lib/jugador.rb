@@ -128,7 +128,7 @@ module ModeloQytetet
       resultado
     end
     
-    def puedo_edificar_hotel
+    def puedo_edificar_hotel(casilla)
        resultado = false
       
       if(es_de_mi_propiedad(casilla))
@@ -226,6 +226,6 @@ module ModeloQytetet
       return arruinado
     end
     
-    private :tengo_saldo, :es_de_mi_propiedad, :eliminar_de_mis_propiedades
+    private :es_de_mi_propiedad, :eliminar_de_mis_propiedades
   end
 end

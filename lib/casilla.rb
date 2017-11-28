@@ -112,7 +112,7 @@ module ModeloQytetet
     def se_puede_edificar_hotel
         resultado = false
       
-      if(@num_casas > 4 && @num_hoteles < 4)
+      if(@num_casas == 4 && @num_hoteles < 4)
         resultado = true
       end
       

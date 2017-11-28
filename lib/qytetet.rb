@@ -96,7 +96,7 @@ module ModeloQytetet
          @jugador_actual.puedo_edificar_casa(casilla))
      
         @jugador_actual.modificar_saldo(- casilla.titulo.precio_edificar)
-        @jugador_actual.casilla_actual.edificar_casa
+        casilla.edificar_casa
         puedo_edificar = true
       end
       
@@ -140,24 +140,27 @@ module ModeloQytetet
     end
     
     def intentar_salir_carcel (metodo)
-      libre = false
+      encarcelado = true
       
       if(!metodo)
         valor_dado = @dado.tirar
 
         if(valor_dado > 5)
-          libre = true
+          encarcelado = false
         end
       end
       
       if(metodo) 
         if(@jugador_actual.tengo_saldo(@@PRECIO_LIBERTAD))
           @jugador_actual.modificar_saldo(- @@PRECIO_LIBERTAD)
-          libre = true
+          
+          encarcelado = false
         end
 
-        @jugador_actual.encarcelado = libre
+        @jugador_actual.encarcelado = encarcelado
       end
+      
+      encarcelado
     end
     
     def jugar
@@ -184,7 +187,7 @@ module ModeloQytetet
       return tiene_propietario
     end
     
-    def obtener_ranking (jugadores)
+    def obtener_ranking ()
       
       ranking = Hash.new
       

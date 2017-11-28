@@ -92,12 +92,13 @@ module InterfazTextualQytetet
 
                     puts "Elige la propiedad: "
                     casilla = @vista.menu_elegir_propiedad(@jugador.propiedades)
+                    titulo = @jugador.propiedades[casilla]
 
                     case opcion
 
                     when 1
 
-                      res = @juego.edificar_casa(@juego.tablero.obtener_casilla_numero(casilla))
+                      res = @juego.edificar_casa(titulo.casilla)
                        
                       if(res)
                         
@@ -110,7 +111,7 @@ module InterfazTextualQytetet
 
                     when 2
 
-                      res = @juego.edificar_hotel(@juego.tablero.obtener_casilla_numero(casilla))
+                      res = @juego.edificar_hotel(titulo.casilla)
                       
                       if(res)
                         
@@ -123,7 +124,7 @@ module InterfazTextualQytetet
 
                     when 3
 
-                      res = @juego.vender_propiedad(@juego.tablero.obtener_casilla_numero(casilla))
+                      res = @juego.vender_propiedad(titulo.casilla)
                        
                       if(res)
                         
@@ -136,7 +137,7 @@ module InterfazTextualQytetet
 
                     when 4
 
-                      res = @juego.hipotecar_propiedad(@juego.tablero.obtener_casilla_numero(casilla))
+                      res = @juego.hipotecar_propiedad(titulo.casilla)
                       
                       if(res)
                         
@@ -149,7 +150,7 @@ module InterfazTextualQytetet
 
                     when 5
 
-                      res = @juego.cancelar_hipoteca(@juego.tablero.obtener_casilla_numero(casilla))
+                      res = @juego.cancelar_hipoteca(titulo.casilla)
                       
                            if(res)
                         

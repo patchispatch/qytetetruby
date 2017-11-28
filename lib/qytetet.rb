@@ -190,12 +190,14 @@ module ModeloQytetet
     
     def obtener_ranking ()
       
-      ranking = Hash.new
+      ranking = Array.new
       
       for j in @jugadores
         
+        string = "Nombre del jugador: " + j.nombre + ". "
         capital = j.obtener_capital
-        ranking[j.nombre] = capital
+        string = string + "Capital: " + capital.to_s
+        ranking <<  string
       end
       
       ranking

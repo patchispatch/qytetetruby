@@ -143,7 +143,15 @@ module ModeloQytetet
     end
     
     def vender_titulo
-      raise "No implementado"
+      
+      precio_compra = precio_total_comprar
+      precio_venta = (precio_compra + @titulo.factor_revalorizacion*precio_compra).to_i
+      @titulo.propietario = nil
+      
+      @hoteles = 0
+      @casas = 0
+      
+      precio_venta
     end
     
     def asignar_titulo_propiedad(tp)

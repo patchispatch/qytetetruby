@@ -25,7 +25,9 @@ module ModeloQytetet
       "Factor de revalorización: #{@factor_revalorizacion}. \n Hipoteca base: #{@hipoteca_base}. \n" + 
       "Precio de edificación: #{@precio_edificar}."
     end
-    
+    def cobrarAlquiler(coste)
+      @propietario.modificar_saldo(coste)
+    end
     def propietario_encarcelado
       @propietario.encarcelado
     end

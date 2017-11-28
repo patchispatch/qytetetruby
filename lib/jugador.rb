@@ -154,7 +154,13 @@ module ModeloQytetet
     end
    
     def puedo_vender_propiedad(casi)
-      es_de_mi_propiedad(casi) && !casi.esta_hipotecada
+      puedo_vender = false
+      
+      if (es_de_mi_propiedad(casi) && !casi.titulo.hipotecada)
+        puedo_vender = true
+      end
+      
+      puedo_vender
     end
     
     def tengo_carta_libertad
@@ -166,8 +172,11 @@ module ModeloQytetet
     end
     
     #Si es 0 no tiene propiedades, si es distinto de 0 si tiene propiedades
-    def vender_propiedad
-      raise "No implementado"
+    def vender_propiedad(casilla)
+      precio_venta = casilla.vender_titulo()
+      modificar_saldo(precio_venta)
+      
+      eliminar_de_mis_propiedades(casilla)
     end
     
     def cuantas_casas_hoteles_tengo

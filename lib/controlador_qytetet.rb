@@ -2,6 +2,7 @@
 
 require_relative 'vista_textual_qytetet'
 require_relative 'qytetet'
+require_relative 'metodo_salir_carcel'
 
 module InterfazTextualQytetet
   class ControladorQytetet
@@ -30,8 +31,18 @@ module InterfazTextualQytetet
         gets.chomp
       
         if(@jugador.encarcelado)
+          @vista.mostrar(@jugador.to_s)
           metodo = @vista.menu_salir_carcel
-          @juego.intentar_salir_carcel(metodo)
+          
+          if(metodo == 0)
+            
+            @juego.intentar_salir_carcel(ModeloQytetet::MetodoSalirCarcel::TIRANDODADO)
+          
+          else
+            
+            @juego.intentar_salir_carcel(ModeloQytetet::MetodoSalirCarcel::PAGANDOLIBERTAD)
+          
+          end
         end
 
 

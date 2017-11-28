@@ -142,18 +142,19 @@ module ModeloQytetet
     def intentar_salir_carcel (metodo)
       encarcelado = true
       
-      if(!metodo)
+      if(metodo == MetodoSalirCarcel::TIRANDODADO)
         valor_dado = @dado.tirar
 
         if(valor_dado > 5)
           encarcelado = false
+          @jugador_actual.encarcelado = encarcelado
         end
       end
       
-      if(metodo) 
+      if(metodo == MetodoSalirCarcel::PAGANDOLIBERTAD) 
         if(@jugador_actual.tengo_saldo(@@PRECIO_LIBERTAD))
-          @jugador_actual.modificar_saldo(- @@PRECIO_LIBERTAD)
           
+          @jugador_actual.modificar_saldo(-@@PRECIO_LIBERTAD)
           encarcelado = false
         end
 

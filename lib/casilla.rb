@@ -52,7 +52,11 @@ module ModeloQytetet
     end
     
     def calcular_valor_hipoteca
-      raise "No implementado"
+      
+      hipo = @titulo.hipoteca_base
+      
+      hipo = hipo + ((@num_casas * 0.5 * hipo)
+                       + (@num_hoteles * hipo)).to_i
     end
     
     def cancelar_hipoteca
@@ -80,18 +84,18 @@ module ModeloQytetet
     end
     
     def hipotecar
-      
-      hipo = @titulo.hipoteca_base
-      
+
       @titulo.hipotecada = true;
-      valor_hipoteca = hipo + ((@num_casas * 0.5 * hipo)
-                       + (@num_hoteles * hipo)).to_i
+      valor_hipoteca = calcular_valor_hipoteca
                      
       return valor_hipoteca
     end
+    
     #Suma de coste, suma de precio casa y hoteles * lo que cuesta edificar
     def precio_total_comprar
-      raise "No implementado"
+      precio_compra = @coste + ((@num_casas + @num_hoteles) * @titulo.precio_edificar).to_i
+      
+      return precio_compra
     end
     
     def propietario_encarcelado 

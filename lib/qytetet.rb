@@ -121,9 +121,9 @@ module ModeloQytetet
       
       puedo_hipotecar = false
       
-      if(casilla.soy_edificable && !casilla.esta_hipotecada && @jugador_actual.puedo_hipotecar)
+      if(casilla.soy_edificable && !casilla.esta_hipotecada && @jugador_actual.puedo_hipotecar(casilla))
         
-        @jugador_actual.modificar_saldo(@casilla.hipotecar)
+        @jugador_actual.modificar_saldo(casilla.hipotecar)
         puedo_hipotecar = true
       end
       

@@ -48,7 +48,6 @@ module ModeloQytetet
     
     def asignar_propietario(jugador)
       
-      @titulo = TituloPropiedad.new
       @titulo.propietario = jugador
     end
     
@@ -73,7 +72,7 @@ module ModeloQytetet
     end
     
     def edificar_hotel
-      raise "No implementado"
+      @num_hoteles = @num_hoteles + 1
     end
 
     def esta_hipotecada

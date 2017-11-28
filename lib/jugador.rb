@@ -164,6 +164,7 @@ module ModeloQytetet
       
       !@propiedades.empty?
     end
+    
     #Si es 0 no tiene propiedades, si es distinto de 0 si tiene propiedades
     def vender_propiedad
       raise "No implementado"
@@ -205,6 +206,7 @@ module ModeloQytetet
       cadena = cadena + "Casilla actual: " + @casilla_actual.to_s
       
       cadena = cadena + "Propiedades: \n"
+      
       for s in @propiedades
         cadena = cadena + "#{s}. \n"
       end

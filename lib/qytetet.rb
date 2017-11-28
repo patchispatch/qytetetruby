@@ -96,6 +96,7 @@ module ModeloQytetet
          @jugador_actual.puedo_edificar_casa(casilla))
      
         @jugador_actual.modificar_saldo(- casilla.titulo.precio_edificar)
+        @jugador_actual.casilla_actual.edificar_casa
         puedo_edificar = true
       end
       
@@ -109,6 +110,7 @@ module ModeloQytetet
          @jugador_actual.puedo_edificar_hotel(casilla))
      
         @jugador_actual.modificar_saldo(- casilla.titulo.precio_edificar)
+        @jugador_actual.casilla_actual.edificar_hotel
         puedo_edificar = true
       end
       

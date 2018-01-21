@@ -12,6 +12,10 @@ module ModeloQytetet
     #Consultores
     attr_reader :propiedades, :nombre
     
+    #Variables de clase:
+    @@factor_especulador = 1
+    
+    #Métodos:
     def initialize(n)
       @encarcelado = false
       @nombre = n
@@ -19,7 +23,19 @@ module ModeloQytetet
       @propiedades = Array.new
       @carta_libertad = nil
       @casilla_actual = nil
-      
+    end
+    
+    def self.especulador(jugador)
+      @@factor_especulador = 2
+      @nombre = jugador.nombre
+      @saldo = jugador.saldo
+      @propiedades = jugador.propiedades
+      @carta_libertad = jugador.carta_libertad
+      @casilla_actual = jugador.casilla_actual
+    end
+    
+    def get_factor_especulador
+      return @@factor_especulador
     end
     
     def actualizar_posicion(casilla)
@@ -29,12 +45,14 @@ module ModeloQytetet
         modificar_saldo(Qytetet.saldo_salida)
       end
       
+      tengo_propietario = false
       @casilla_actual = casilla
       
-      if(casilla.soy_edificable && casilla.tengo_propietario && casilla.titulo.propietario_encarcelado)
-        coste_alquiler = casilla.cobrar_alquiler()
-        
-        modificar_saldo(-coste_alquiler)
+      if(casilla.soy_edificable)
+          if(casilla.tengo_propietario && casilla.titulo.propietario_encarcelado)
+            coste_alquiler = casilla.cobrar_alquiler()
+            modificar_saldo(-coste_alquiler)
+          end
       end
       
       if(casilla.tipo == TipoCasilla::IMPUESTO)
@@ -42,7 +60,7 @@ module ModeloQytetet
         modificar_saldo(-coste)
       end
       
-      return casilla.tengo_propietario
+      return tengo_propietario
     end
     
     def comprar_titulo
@@ -199,6 +217,8 @@ module ModeloQytetet
     
     def to_s
       
+      #Cambiar "Jugador" por self.class.name.
+      
       cadena = "Jugador: #{@nombre}. \n"
       
       if(@encarcelado)
@@ -233,6 +253,16 @@ module ModeloQytetet
       end
       
       return arruinado
+    end
+    
+    def pagar_impuestos(cantidad)
+      modificar_saldo(-cantidad)
+    end
+    
+    def convertirme(fianza)
+      converso = converso.especulador(self, fianza)
+      
+      return converso
     end
     
     private :es_de_mi_propiedad, :eliminar_de_mis_propiedades

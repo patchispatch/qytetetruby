@@ -80,8 +80,17 @@ module ModeloQytetet
         
         @jugador_actual.carta_libertad = @carta_actual
       end
+      
+      if(@carta_actual.tipo == TipoSorpresa::CONVERTIRME)
         
-        return tiene_propietario
+        @jugadores.delete(@jugador_actual)
+        @jugador_actual = @jugador_actual.convertirme(@carta_actual.valor)
+        @jugadores << @jugador_actual
+      
+      end
+        
+      return tiene_propietario
+      
     end
     
     def comprar_titulo_propiedad
@@ -92,8 +101,8 @@ module ModeloQytetet
       
       puedo_edificar = false;
       
-      if(casilla.soy_edificable && casilla.se_puede_edificar_casa && 
-         @jugador_actual.puedo_edificar_casa(casilla))
+      if(casilla.soy_edificable && casilla.se_puede_edificar_casa(@jugador_actual.get_factor_especulador) && 
+        @jugador_actual.puedo_edificar_casa(casilla))
      
         @jugador_actual.modificar_saldo(- casilla.titulo.precio_edificar)
         casilla.edificar_casa
@@ -104,10 +113,11 @@ module ModeloQytetet
     end
     
     def edificar_hotel (casilla)
+      
       puedo_edificar = false;
       
-      if(casilla.soy_edificable && casilla.se_puede_edificar_hotel && 
-         @jugador_actual.puedo_edificar_hotel(casilla))
+      if(casilla.soy_edificable && casilla.se_puede_edificar_hotel(@jugaodr_actual.get_factor_especulador) && 
+        @jugador_actual.puedo_edificar_hotel(casilla))
      
         @jugador_actual.modificar_saldo(- casilla.titulo.precio_edificar)
         @jugador_actual.casilla_actual.edificar_hotel
@@ -307,6 +317,14 @@ module ModeloQytetet
       @mazo << Sorpresa.new("Aburrido en tu celda, decides ponerte a cantar, A
                 los guardias les ha gustado, ¡y te dejan salir!", 0,
                 TipoSorpresa::SALIRCARCEL)
+              
+      #Especulador
+      @mazo << Sorpresa.new("Te obsequiamos con el caramillo de plata del Eolio. 
+                ¡Ahora eres un especulador!", 3000, TipoSorpresa::CONVERTIRME)
+      
+      @mazo << Sorpresa.new("Un noble te escuchó tocar anoche, y le encantó tanto 
+                que te ha ofrecido su mecenazgo. ¡Ahora eres un especulador!",
+                5000, TipoSorpresa::CONVERTIRME)
               
       #Barajamos:
       @mazo.shuffle

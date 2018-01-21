@@ -90,7 +90,9 @@ module InterfazTextualQytetet
                   end
                 end
               end
-
+              
+              @jugador = @juego.jugador_actual
+              
               if(!@jugador.encarcelado && !@jugador.bancarrota && @jugador.tengo_propiedades)
 
                 begin
